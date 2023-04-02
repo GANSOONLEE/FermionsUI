@@ -1,0 +1,18 @@
+{
+    "name": "fermions-ui",
+    "version": "1.0.0",
+    "description": "A lightweight CSS library",
+    "main": "index.js",
+    "author": {
+        "name": "Gan Soon Lee",
+        "email": "axundeveloper0402@gmail.com",
+        "url": ""
+    },
+    "license": "MIT",
+    "dependencies": {
+        
+    },
+    "devDependencies": {
+        
+    }
+}
