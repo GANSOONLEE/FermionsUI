@@ -35,7 +35,7 @@ class Module {
     }
 }
 
-class ModuleManager {
+export class ModuleManager {
     private modules: { [key: string]: Module } = {};
 
     // Register Module
@@ -54,3 +54,4 @@ class ModuleManager {
     }
 }
 
+export default {ModuleManager};
