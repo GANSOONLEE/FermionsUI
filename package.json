@@ -9,10 +9,7 @@
         "url": ""
     },
     "license": "MIT",
-    "dependencies": {
-        
-    },
     "devDependencies": {
-        
+        "@types/node": "^18.15.11"
     }
 }
