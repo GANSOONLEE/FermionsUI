@@ -38,13 +38,13 @@ class Module {
 class ModuleManager {
     private modules: { [key: string]: Module } = {};
 
-    // 注册一个模块
+    // Register Module
     public registerModule(name: string, path: string) {
         const module = new Module(name, path);
         this.modules[name] = module;
     }
 
-    // 加载一个模块
+    // Load a Module
     public async loadModule(name: string) {
         const module = this.modules[name];
         if (!module) {
