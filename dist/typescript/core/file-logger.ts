@@ -18,7 +18,7 @@ class Logger {
         this.logFileName = logFilePath;
 
         // Ensure the logs directory exists
-        const logDir = path.dirname(this.logFileName);
+        const logDir = path.join(path.dirname(path.dirname(this.logFileName)), 'logs');
         if (!fs.existsSync(logDir)) {
             fs.mkdirSync(logDir, { recursive: true });
         }
@@ -63,5 +63,8 @@ const date = currentDate.getDate().toString().padStart(2, '0');
 
 const logFileName = `log-${year}-${month}-${date}.txt`;
 
-const logger = new Logger(`./logs/${logFileName}`, LogLevel.Info);
+const logFilePath = path.join(process.cwd(), 'logs', logFileName);
+
+const logger = new Logger(logFilePath, LogLevel.Info);
 export default logger;
+
