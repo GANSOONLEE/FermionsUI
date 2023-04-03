@@ -1,24 +1,23 @@
-
-// Management core module
+import fs from 'fs';
+import path from 'path';
+import logger from './file-logger';
 
 interface IManagement {
-    moduleID: string; // moduleID is unique
-    path: string; // path to the module, recommended use the relative path
+    moduleID: string;
+    path: string;
 }
 
-// defined module attributes and methods
 class Module {
     public moduleID: string;
     public path: string;
     public exports: any;
 
-    constructor(moduleID: string, path: string) {
+    constructor(moduleID: string, relPath: string) {
         this.moduleID = moduleID;
-        this.path = path;
+        this.path = path.resolve(__dirname, relPath);
         this.exports = {};
     }
 
-    // load a module
     public load() {
         const script = document.createElement('script');
         script.type = 'module';
@@ -30,6 +29,7 @@ class Module {
             };
             script.onerror = (event) => {
                 reject(new Error(`Failed to load module ${this.moduleID} from ${this.path}: ${event}`));
+                logger.warn(`Failed to load module "${this.moduleID}"`);
             };
         });
     }
@@ -38,20 +38,26 @@ class Module {
 export class ModuleManager {
     private modules: { [key: string]: Module } = {};
 
-    // Register Module
-    public registerModule(name: string, path: string) {
-        const module = new Module(name, path);
-        this.modules[name] = module;
+    public registerModule(name: string, relPath: string) {
+        const module = new Module(name, relPath);
+        if (fs.existsSync(module.path)) {
+            this.modules[name] = module;
+            logger.info(`The module "${name}" is registered.`);
+        } else {
+            logger.warn(`The module "${name}" is not registered because the file path "${module.path}" does not exist.`);
+            throw new Error(`Module ${name} not registered because the file path "${module.path}" does not exist.`);
+        }
     }
 
-    // Load a Module
     public async loadModule(name: string) {
         const module = this.modules[name];
         if (!module) {
-            throw new Error(`Module ${name} not found`);
+            logger.error(`Module ${this.modules} not found`);
+            throw new Error(`Module ${this.modules} not found`);
         }
         return await module.load();
     }
 }
 
-export default {ModuleManager};
+const moduleExport = new ModuleManager()
+export default moduleExport;

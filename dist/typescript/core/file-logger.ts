@@ -27,8 +27,9 @@ class Logger {
     private log(level: LogLevel, message: string): void {
         if (level <= this.logLevel) {
             const logDate = new Date().toISOString();
+            const formattedDate = logDate.toLocaleString().replace('T', ' ').replace(/\..+/, '');
             const logLevelStr = LogLevel[level].toUpperCase();
-            const logMessage = `${logDate}: [${logLevelStr}] ${message}\n`;
+            const logMessage = `${formattedDate} - [${logLevelStr}] ${message}\n`;
 
             // Append the log message to the log file
             fs.appendFileSync(this.logFile, logMessage);
