@@ -8,8 +8,5 @@
         "email": "axundeveloper0402@gmail.com",
         "url": ""
     },
-    "license": "MIT",
-    "devDependencies": {
-        "@types/node": "^18.15.11"
-    }
+    "license": "MIT"
 }
